@@ -2,10 +2,10 @@ import React, { useState, useRef } from 'react';
 import { Modal, Button, Alert } from 'rsuite';
 import AvatarEditor from 'react-avatar-editor';
 import { useModalState } from '../../misc/custom-hooks';
-import { database, storage } from '../../misc/firebase';
+import { storage, database } from '../../misc/firebase';
 import { useProfile } from '../../context/profile.context';
 import ProfileAvatar from '../ProfileAvatar';
-// import { getUserUpdates } from '../../misc/helpers';
+import { getUserUpdates } from '../../misc/helpers';
 
 const fileInputTypes = '.png, .jpeg, .jpg';
 
@@ -56,7 +56,7 @@ const AvatarUploadBtn = () => {
       const blob = await getBlob(canvas);
 
       const avatarFileRef = storage
-        .ref(`/profiles/${profile.uid}`)
+        .ref(`/profile/${profile.uid}`)
         .child('avatar');
 
       const uploadAvatarResult = await avatarFileRef.put(blob, {
@@ -65,20 +65,14 @@ const AvatarUploadBtn = () => {
 
       const downloadUrl = await uploadAvatarResult.ref.getDownloadURL();
 
-      const userAvatarRef = database
-        .ref(`/profiles/${profile.uid}`)
-        .child('avatar');
-
-      /* const updates = await getUserUpdates(
+      const updates = await getUserUpdates(
         profile.uid,
         'avatar',
         downloadUrl,
         database
-      ); */
+      );
 
-      // await database.ref().update(updates);
-
-      userAvatarRef.set(downloadUrl);
+      await database.ref().update(updates);
 
       setIsLoading(false);
       Alert.info('Avatar has been uploaded', 4000);
