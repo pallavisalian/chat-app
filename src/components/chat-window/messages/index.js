@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router';
 import { Alert } from 'rsuite';
