@@ -6,6 +6,7 @@ import ProfileInfoBtnModal from './ProfileInfoBtnModal';
 import PresenceDot from '../../PresenceDot';
 import { useCurrentRoom } from '../../../context/current-room.context';
 import { auth } from '../../../misc/firebase';
+import { useHover } from '../../../misc/custom-hooks';
 // import {  useMediaQuery } from '../../../misc/custom-hooks';
 // import IconBtnControl from './IconBtnControl';
 // import ImgBtnModal from './ImgBtnModal';
@@ -13,7 +14,7 @@ import { auth } from '../../../misc/firebase';
 const MessageItem = ({ message, handleAdmin }) => {
   const { author, createdAt, text } = message;
 
-  // const [selfRef, isHovered] = useHover();
+  const [selfRef, isHovered] = useHover();
   // const isMobile = useMediaQuery('(max-width: 992px)');
 
   const isAdmin = useCurrentRoom(v => v.isAdmin);
@@ -27,7 +28,10 @@ const MessageItem = ({ message, handleAdmin }) => {
   // const isLiked = likes && Object.keys(likes).includes(auth.currentUser.uid);
 
   return (
-    <li className="padded mb-1">
+    <li
+      className={`padded mb-1 cursor-pointer ${isHovered ? 'bg-black-02' : ''}`}
+      ref={selfRef}
+    >
       <div className="d-flex align-items-center font-bolder mb-1">
         <PresenceDot uid={author.uid} />
 
