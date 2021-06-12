@@ -85,7 +85,7 @@ const Messages = () => {
   }, []);
 
   const handleDelete = useCallback(
-    async (msgId, file) => {
+    async msgId => {
       // eslint-disable-next-line no-alert
       if (!window.confirm('Delete this message?')) {
         return;
