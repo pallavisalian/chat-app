@@ -24,6 +24,9 @@ export const ProfileProvider = ({ children }) => {
 
     const authUnsub = auth.onAuthStateChanged(authObj => {
       if (authObj) {
+        // eslint-disable-next-line
+        console.log('authObj.uid', authObj.uid);
+
         userStatusRef = database.ref(`/status/${authObj.uid}`);
         userRef = database.ref(`/profiles/${authObj.uid}`);
 
