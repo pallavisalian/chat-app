@@ -18,7 +18,8 @@ const config = {
   appId: '1:159536743898:web:b610e281be3b51bed5ace3',
 };
 
-// export const fcmVapidKey = '';
+export const fcmVapidKey =
+  'BN2RCQTg0pEprNiY9VcKSHIkBL9uR6-fyJamSWc7Qgf78_I-M0r58mHRmndSI_5MuHl3RZYWKSkxEcU61Y0ffww';
 
 const app = firebase.initializeApp(config);
 export const auth = app.auth();
@@ -31,11 +32,6 @@ export const messaging = firebase.messaging.isSupported()
   : null;
 
 if (messaging) {
-  messaging.getToken({
-    vapidKey:
-      'BN2RCQTg0pEprNiY9VcKSHIkBL9uR6-fyJamSWc7Qgf78_I-M0r58mHRmndSI_5MuHl3RZYWKSkxEcU61Y0ffww',
-  });
-
   messaging.onMessage(({ notification }) => {
     const { title, body } = notification;
     Toast.info({ title, description: body, duration: 0 });
