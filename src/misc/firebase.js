@@ -43,5 +43,5 @@ if (messaging) {
 }
 
 if (isLocalhost) {
-  functions.useEmulator('http://localhost:5001');
+  functions.useEmulator('localhost', 5001);
 }
